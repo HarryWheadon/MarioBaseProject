@@ -74,16 +74,16 @@ bool InitSDL()
 void CLoseSDL()
 {
 	//release the window
-	SDL_DestroyWindow(g_window);
 	g_window = nullptr;
+	SDL_DestroyWindow(g_window);
 
 	//quit SDL subsystems
 	IMG_Quit();
 	SDL_Quit();
 
 	//release the renderer
-	SDL_DestroyRenderer(g_renderer);
 	g_renderer = nullptr;
+	SDL_DestroyRenderer(g_renderer);
 
 //destroy the game screen manager
 	delete game_screen_manager;
