@@ -82,7 +82,7 @@ void CLoseSDL()
 	SDL_Quit();
 
 	//release the renderer
-	/*SDL_DestroyRenderer(g_renderer);*/
+	SDL_DestroyRenderer(g_renderer);
 	g_renderer = nullptr;
 
 //destroy the game screen manager
