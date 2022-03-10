@@ -11,7 +11,6 @@ public:
 	~LevelMap();
 
 	int GetTileAt(unsigned int h, unsigned int w);
-
 private:
 	int** m_map;
 };
