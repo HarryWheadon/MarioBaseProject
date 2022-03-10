@@ -19,6 +19,16 @@ LevelMap::LevelMap(int map[MAP_HEIGHT][MAP_WIDTH])
     }
 }
 
+int LevelMap::GetTileAt(unsigned int h, unsigned int w)
+{
+    if (h < MAP_HEIGHT && w < MAP_WIDTH)
+    {
+        return m_map[h][w];
+    }
+    return 0;
+}
+
+
 LevelMap::~LevelMap()
 {
     //delete all elements of the array
@@ -27,13 +37,4 @@ LevelMap::~LevelMap()
         delete[] m_map[i];
     }
     delete[]m_map;
-}
-
-int LevelMap::GetTileAt(unsigned int h, unsigned int w)
-{
-   if (h < MAP_HEIGHT && w < MAP_WIDTH)
-    {
-        return m_map[h][w];
-    }
-    return 0;
 }

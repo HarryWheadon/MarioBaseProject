@@ -70,13 +70,11 @@ void GameScreenLevel1::Update(float deltaTime, SDL_Event e)
 
 bool GameScreenLevel1::SetUpLevel()
 {
+	SetLevelMap();
+
 	//set up player character
 	Mario_character = new CharacterMario(m_renderer, "Images/Mario.png", Vector2D(64, 330), m_level_map);
 	Luigi_character = new CharacterLuigi(m_renderer, "Images/Luigi.png", Vector2D(64, 330), m_level_map);
-
-	SetLevelMap();
-
-
 
 	//load texture
 	m_background_texture = new Texture2D(m_renderer);

@@ -82,7 +82,7 @@ void CLoseSDL()
 	SDL_Quit();
 
 	//release the renderer
-	SDL_DestroyRenderer(g_renderer);
+	/*SDL_DestroyRenderer(g_renderer);*/
 	g_renderer = nullptr;
 
 //destroy the game screen manager
@@ -104,10 +104,13 @@ bool Update()
 	//handle the events
 	switch (e.type)
 	{
-		//click the 'X' to quit
-	case SDL_QUIT:
+	case SDL_KEYDOWN:
+		switch (e.key.keysym.sym)
+		{
+		case SDLK_x:
 			return true;
 			break;
+		}
 	}
 
 	game_screen_manager->Update((float)(new_time - g_old_time) / 1000.0f, e);
