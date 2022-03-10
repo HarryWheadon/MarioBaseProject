@@ -2,7 +2,6 @@
 
 PowBlock::PowBlock(SDL_Renderer * renderer, LevelMap* map)
 {
-	m_num_hits_left = 3;
 	std::string imagePath = "Images/PowBlock.png";
 	m_texture = new Texture2D(renderer);
 	if (!m_texture->LoadFromFile(imagePath.c_str()))
@@ -11,6 +10,7 @@ PowBlock::PowBlock(SDL_Renderer * renderer, LevelMap* map)
 		return;
 	}
 
+	m_num_hits_left = 3;
 	m_level_map = map;
 	m_single_sprite_w = m_texture->GetWidth() / 3; //there are three images in this sprite sheet in a row
 	m_single_sprite_h = m_texture->GetHeight();
@@ -32,7 +32,7 @@ void PowBlock::TakeHit()
 
 void PowBlock::Render()
 {
-	if (m_num_hits_left < 0)
+	if (m_num_hits_left > 0)
 	{
 		//get the portion of the sheet we want to draw
 		int left = m_single_sprite_w * (m_num_hits_left - 1);

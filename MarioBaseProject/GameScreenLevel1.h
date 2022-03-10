@@ -14,7 +14,14 @@ private:
 	Texture2D* m_background_texture;
 	CharacterMario* Mario_character;
 	CharacterLuigi* Luigi_character;
-PowBlock* m_pow_block;
+	PowBlock* m_pow_block;
+
+	bool m_screenshake;
+	float m_shake_time;
+	float m_wobble;
+	float m_background_yPos;
+
+	void DoScreenShake();
 	void SetLevelMap();
 
 public:
