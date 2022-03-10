@@ -3,15 +3,18 @@
 #include "Commons.h"
 #include "Character.h"
 #include "LevelMap.h"
+#include "PowBlock.h"
 
 class Character;
 class Texture2D;
+class PowBlock;
 class GameScreenLevel1 : GameScreen
 {
 private:
 	Texture2D* m_background_texture;
 	CharacterMario* Mario_character;
 	CharacterLuigi* Luigi_character;
+PowBlock* m_pow_block;
 	void SetLevelMap();
 
 public:
@@ -20,6 +23,7 @@ public:
 
 	void Render() override;
 	void Update(float deltaTime, SDL_Event e) override;
+	void UpdatePOWBlock();
 
 private:
 	bool SetUpLevel();
