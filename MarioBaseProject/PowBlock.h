@@ -6,6 +6,7 @@
 #include "Commons.h"
 #include "Character.h"
 #include "LevelMap.h"
+#include "Texture2D.h"
 
 class LevelMap;
 class PowBlock
@@ -20,14 +21,14 @@ public:
 		void Render();
 
 private:
+	int m_num_hits_left;
+	float m_single_sprite_w;
+	float m_single_sprite_h;
+
 	SDL_Renderer* m_renderer;
 	Vector2D m_position;
 	Texture2D* m_texture;
 	LevelMap* m_level_map;
-
-	float m_single_sprite_w;
-	float m_single_sprite_h;
-	int m_num_hits_left;
 };
 
 #endif // ! _POWBLOCK_H

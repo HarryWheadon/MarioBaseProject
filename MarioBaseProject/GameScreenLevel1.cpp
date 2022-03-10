@@ -2,6 +2,7 @@
 #include "Texture2D.h"
 #include <iostream>
 #include "Collisions.h"
+#include "PowBlock.h"
 
 void GameScreenLevel1::SetLevelMap()
 {

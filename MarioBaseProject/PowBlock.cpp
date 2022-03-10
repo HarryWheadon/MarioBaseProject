@@ -17,6 +17,19 @@ PowBlock::PowBlock(SDL_Renderer * renderer, LevelMap* map)
 	m_position = Vector2D((SCREEN_WIDTH * 0.5f) - m_single_sprite_w * 0.5f, 260);
 }
 
+
+void PowBlock::TakeHit()
+{
+	m_num_hits_left -= 1;
+	
+	if (m_num_hits_left <= 0)
+	{
+		m_num_hits_left = 0;
+		m_level_map->ChangeTileAt(8, 7, 0);
+		m_level_map->ChangeTileAt(8, 8, 0);
+	}
+}
+
 void PowBlock::Render()
 {
 	if (m_num_hits_left < 0)
@@ -34,18 +47,6 @@ void PowBlock::Render()
 
 		//draw the sprite
 		m_texture->Render(portion_of_sprite, dest_rect, SDL_FLIP_NONE);
-	}
-}
-
-void PowBlock::TakeHit()
-{
-	m_num_hits_left -= 1;
-	
-	if (m_num_hits_left <= 0)
-	{
-		m_num_hits_left = 0;
-		m_level_map->ChangeTileAt(8, 7, 0);
-		m_level_map->ChangeTileAt(8, 8, 0);
 	}
 }
 
