@@ -39,7 +39,6 @@ public:
 	void Render() override;
 	void Update(float deltaTime, SDL_Event e) override;
 	void UpdatePOWBlock();
-
 private:
 	bool SetUpLevel();
 	LevelMap* m_level_map;
