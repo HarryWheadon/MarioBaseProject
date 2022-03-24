@@ -213,4 +213,18 @@ void GameScreenLevel1::UpdatePOWBlock()
 			}
 		}
 	}
+
+	if (Collisions::Instance()->Box(m_pow_block->GetCollisionBox(), Luigi_character->GetCollisionBox()))
+	{
+		if (m_pow_block->IsAvailable())
+		{
+			//collided while jumping
+			if (Luigi_character->IsJumping())
+			{
+				DoScreenShake();
+				m_pow_block->TakeHit();
+				Luigi_character->CancelJump();
+			}
+		}
+	}
 }
