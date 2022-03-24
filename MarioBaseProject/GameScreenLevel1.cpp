@@ -53,6 +53,12 @@ void GameScreenLevel1::UpdateEnemies(float deltaTime, SDL_Event e)
 					i]->GetPosition().x > SCREEN_WIDTH - (float)(m_enemies[i]->GetCollisionBox().width * 0.55f))
 					m_enemies[i]->SetAlive(false);
 			}
+
+			if ( m_enemies[i]->GetPosition().x < 0 || m_enemies[i]->GetPosition().x > 500)
+				m_enemies[i]->HitWall(true);
+			else 
+				m_enemies[i]->HitWall(false);
+
 			//now do the update
 
 			m_enemies[i]->Update(deltaTime, e);
@@ -75,10 +81,8 @@ void GameScreenLevel1::UpdateEnemies(float deltaTime, SDL_Event e)
 					{
 						//kill mario
 					}
-
 				}
 			}
-
 			//if the enemy is no longer alive then schedule it for deletion
 			if (!m_enemies[i]->GetAlive())
 			{
@@ -170,7 +174,6 @@ void GameScreenLevel1::Render()
 
 void GameScreenLevel1::Update(float deltaTime, SDL_Event e)
 {
-	UpdateEnemies(deltaTime, e);
 	// do if the screen shake if required
 	if (m_screenshake)
 	{
@@ -190,6 +193,7 @@ void GameScreenLevel1::Update(float deltaTime, SDL_Event e)
 	//update Character
 	Mario_character->MarioUpdate(deltaTime, e);
 	Luigi_character->LuigiUpdate(deltaTime, e);
+	UpdateEnemies(deltaTime, e);
 	UpdatePOWBlock();
 }
 

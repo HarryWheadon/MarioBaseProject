@@ -2,6 +2,7 @@
 #include "Character.h"
 #include "GameScreen.h"
 
+
 CharacterKoopa::CharacterKoopa(SDL_Renderer* renderer, string imagePath, LevelMap* map, Vector2D start_position, FACING start_facing, float movement_speed) : Character(renderer, imagePath, start_position, map)
 {
 	m_facing_direction = start_facing;
@@ -36,7 +37,7 @@ void CharacterKoopa::TakeDamage()
 
 void CharacterKoopa::FlipRightWayUp()
 {
-	if (FACING_LEFT)
+	if (m_facing_direction == FACING_LEFT)
 		m_facing_direction = FACING_RIGHT;
 	else
 		m_facing_direction = FACING_LEFT;
@@ -74,8 +75,15 @@ void CharacterKoopa::Render()
 
 }
 
-void CharacterKoopa::Update(float deltaTime, SDL_Event e)
+void CharacterKoopa::Update(float deltaTime, SDL_Event e) 
 {
+	if (GetHitWall())
+	{
+		if (m_facing_direction == FACING_LEFT)
+			m_facing_direction = FACING_RIGHT;
+		else
+			m_facing_direction = FACING_LEFT;
+	}
 	if (!m_injured)
 	{
 		//enemy is not injured so move
@@ -101,8 +109,10 @@ void CharacterKoopa::Update(float deltaTime, SDL_Event e)
 
 		if (m_injured_time <= 0.0)
 			FlipRightWayUp();
-
 	}
+	Character::Update(deltaTime, e);
+
 }
+
 
 

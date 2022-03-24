@@ -134,6 +134,11 @@ void Character::SetAlive(bool isAlive)
 	m_alive = isAlive;
 }
 
+void Character::HitWall(bool Hitwall)
+{
+	hitwall = Hitwall;
+}
+
 CharacterLuigi::CharacterLuigi(SDL_Renderer* renderer, string imagePath, Vector2D startposition, LevelMap* map) : Character(renderer, imagePath, startposition, map){}
 
 void CharacterLuigi::LuigiUpdate(float deltaTime, SDL_Event e)
