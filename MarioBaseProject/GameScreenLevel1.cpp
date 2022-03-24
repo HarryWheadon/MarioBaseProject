@@ -54,10 +54,9 @@ void GameScreenLevel1::UpdateEnemies(float deltaTime, SDL_Event e)
 					m_enemies[i]->SetAlive(false);
 			}
 
-			if ( m_enemies[i]->GetPosition().x < 0 || m_enemies[i]->GetPosition().x > 500)
+			m_enemies[i]->HitWall(false);
+			if ( m_enemies[i]->GetPosition().x < 0 || m_enemies[i]->GetPosition().x > 450)
 				m_enemies[i]->HitWall(true);
-			else 
-				m_enemies[i]->HitWall(false);
 
 			//now do the update
 
