@@ -42,6 +42,7 @@ Character::Character(SDL_Renderer* renderer, string imagePath, Vector2D startPos
 	m_current_level_map = map;
 	m_renderer = renderer;
 	m_position = startPosition;
+	m_alive = true;
 
 	m_texture = new Texture2D(m_renderer);
 	if (!m_texture->LoadFromFile(imagePath))
@@ -126,6 +127,11 @@ void Character::SetPosition(Vector2D new_position)
 Vector2D Character::GetPosition()
 {
 	return m_position;
+}
+
+void Character::SetAlive(bool isAlive)
+{
+	m_alive = isAlive;
 }
 
 CharacterLuigi::CharacterLuigi(SDL_Renderer* renderer, string imagePath, Vector2D startposition, LevelMap* map) : Character(renderer, imagePath, startposition, map){}
