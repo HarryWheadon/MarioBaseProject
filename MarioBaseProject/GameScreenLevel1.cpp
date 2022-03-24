@@ -9,7 +9,10 @@ void GameScreenLevel1::DoScreenShake()
 	m_screenshake = true;
 	m_shake_time = SHAKE_DURATION;
 	m_wobble = 0.0f;
-
+	for (unsigned int i = 0; i < m_enemies.size(); i++)
+	{
+		m_enemies[i]->TakeDamage();
+	}
 }
 
 void GameScreenLevel1::SetLevelMap()
@@ -72,14 +75,18 @@ void GameScreenLevel1::UpdateEnemies(float deltaTime, SDL_Event e)
 			{
 				if (Collisions::Instance()->Circle(m_enemies[i], Mario_character))
 				{
-					if (m_enemies[i]->GetInjured())
+					/*if (m_enemies[i]->GetInjured())
 					{
 						m_enemies[i]->SetAlive(false);
 					}
 					else
-					{
-						//kill mario
-					}
+					{*/
+						m_enemies[i]->TakeDamage();
+					/*}*/
+				}
+				if (Collisions::Instance()->Circle(m_enemies[i], Luigi_character))
+				{
+					m_enemies[i]->TakeDamage();
 				}
 			}
 			//if the enemy is no longer alive then schedule it for deletion
@@ -110,8 +117,16 @@ bool GameScreenLevel1::SetUpLevel()
 	SetLevelMap();
 
 	CreateKoopa(Vector2D(150, 32), FACING_RIGHT, KOOPA_SPEED);
+	CreateKoopa(Vector2D(175, 32), FACING_RIGHT, KOOPA_SPEED);
+	CreateKoopa(Vector2D(200, 32), FACING_RIGHT, KOOPA_SPEED);
+	CreateKoopa(Vector2D(225, 32), FACING_RIGHT, KOOPA_SPEED);
+	CreateKoopa(Vector2D(250, 32), FACING_RIGHT, KOOPA_SPEED);
+	CreateKoopa(Vector2D(300, 32), FACING_RIGHT, KOOPA_SPEED);
 	CreateKoopa(Vector2D(325, 32), FACING_LEFT, KOOPA_SPEED);
-
+	CreateKoopa(Vector2D(300, 32), FACING_LEFT, KOOPA_SPEED);
+	CreateKoopa(Vector2D(375, 32), FACING_LEFT, KOOPA_SPEED);
+	CreateKoopa(Vector2D(250, 32), FACING_LEFT, KOOPA_SPEED);
+	CreateKoopa(Vector2D(225, 32), FACING_LEFT, KOOPA_SPEED);
 
 	//set up player character
 	Mario_character = new CharacterMario(m_renderer, "Images/Mario.png", Vector2D(64, 330), m_level_map);
