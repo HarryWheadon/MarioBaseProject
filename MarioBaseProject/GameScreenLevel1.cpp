@@ -116,7 +116,6 @@ bool GameScreenLevel1::SetUpLevel()
 	SetLevelMap();
 
 	CreateKoopa(Vector2D(150, 32), FACING_RIGHT, KOOPA_SPEED);
-
 	//CreateKoopa(Vector2D(175, 32), FACING_RIGHT, KOOPA_SPEED);
 	//CreateKoopa(Vector2D(200, 32), FACING_RIGHT, KOOPA_SPEED);
 	//CreateKoopa(Vector2D(225, 32), FACING_RIGHT, KOOPA_SPEED);
