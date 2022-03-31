@@ -41,6 +41,12 @@ void GameScreenLevel1::SetLevelMap()
 	m_level_map = new LevelMap(map);
 }
 
+void GameScreenLevel1::CreateKoopa(Vector2D position, FACING direction, float speed)
+{
+	Koopa_character = new CharacterKoopa(m_renderer, "Images/koopa.png", m_level_map, position, direction, speed);
+	m_enemies.push_back(Koopa_character);
+}
+
 void GameScreenLevel1::UpdateEnemies(float deltaTime, SDL_Event e)
 {
 	if (!m_enemies.empty())
@@ -75,18 +81,19 @@ void GameScreenLevel1::UpdateEnemies(float deltaTime, SDL_Event e)
 			{
 				if (Collisions::Instance()->Circle(m_enemies[i], Mario_character))
 				{
-					/*if (m_enemies[i]->GetInjured())
+					if (m_enemies[i]->GetInjured())
 					{
 						m_enemies[i]->SetAlive(false);
 					}
-					else
-					{*/
-						m_enemies[i]->TakeDamage();
-					/*}*/
+					CreateKoopa(Vector2D(325, 32), FACING_LEFT, KOOPA_SPEED);
+					CreateKoopa(Vector2D(150, 32), FACING_RIGHT, KOOPA_SPEED);
 				}
 				if (Collisions::Instance()->Circle(m_enemies[i], Luigi_character))
 				{
-					m_enemies[i]->TakeDamage();
+					if (m_enemies[i]->GetInjured())
+					{
+						m_enemies[i]->SetAlive(false);
+					}
 				}
 			}
 			//if the enemy is no longer alive then schedule it for deletion
@@ -106,28 +113,22 @@ void GameScreenLevel1::UpdateEnemies(float deltaTime, SDL_Event e)
 
 }
 
-void GameScreenLevel1::CreateKoopa(Vector2D position, FACING direction, float speed)
-{
-	Koopa_character = new CharacterKoopa(m_renderer, "Images/koopa.png", m_level_map, position, direction, speed);
-	m_enemies.push_back(Koopa_character);
-}
-
 bool GameScreenLevel1::SetUpLevel()
 {
 	SetLevelMap();
 
 	CreateKoopa(Vector2D(150, 32), FACING_RIGHT, KOOPA_SPEED);
-	CreateKoopa(Vector2D(175, 32), FACING_RIGHT, KOOPA_SPEED);
-	CreateKoopa(Vector2D(200, 32), FACING_RIGHT, KOOPA_SPEED);
-	CreateKoopa(Vector2D(225, 32), FACING_RIGHT, KOOPA_SPEED);
-	CreateKoopa(Vector2D(250, 32), FACING_RIGHT, KOOPA_SPEED);
-	CreateKoopa(Vector2D(300, 32), FACING_RIGHT, KOOPA_SPEED);
+	//CreateKoopa(Vector2D(175, 32), FACING_RIGHT, KOOPA_SPEED);
+	//CreateKoopa(Vector2D(200, 32), FACING_RIGHT, KOOPA_SPEED);
+	//CreateKoopa(Vector2D(225, 32), FACING_RIGHT, KOOPA_SPEED);
+	//CreateKoopa(Vector2D(250, 32), FACING_RIGHT, KOOPA_SPEED);
+	//CreateKoopa(Vector2D(300, 32), FACING_RIGHT, KOOPA_SPEED);
 	CreateKoopa(Vector2D(325, 32), FACING_LEFT, KOOPA_SPEED);
-	CreateKoopa(Vector2D(300, 32), FACING_LEFT, KOOPA_SPEED);
-	CreateKoopa(Vector2D(375, 32), FACING_LEFT, KOOPA_SPEED);
-	CreateKoopa(Vector2D(250, 32), FACING_LEFT, KOOPA_SPEED);
-	CreateKoopa(Vector2D(225, 32), FACING_LEFT, KOOPA_SPEED);
-
+	//CreateKoopa(Vector2D(300, 32), FACING_LEFT, KOOPA_SPEED);
+	//CreateKoopa(Vector2D(375, 32), FACING_LEFT, KOOPA_SPEED);
+	//CreateKoopa(Vector2D(250, 32), FACING_LEFT, KOOPA_SPEED);
+	//CreateKoopa(Vector2D(225, 32), FACING_LEFT, KOOPA_SPEED);
+	
 	//set up player character
 	Mario_character = new CharacterMario(m_renderer, "Images/Mario.png", Vector2D(64, 330), m_level_map);
 	Luigi_character = new CharacterLuigi(m_renderer, "Images/Luigi.png", Vector2D(64, 330), m_level_map);
