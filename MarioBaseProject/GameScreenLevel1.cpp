@@ -85,8 +85,6 @@ void GameScreenLevel1::UpdateEnemies(float deltaTime, SDL_Event e)
 					{
 						m_enemies[i]->SetAlive(false);
 					}
-					CreateKoopa(Vector2D(325, 32), FACING_LEFT, KOOPA_SPEED);
-					CreateKoopa(Vector2D(150, 32), FACING_RIGHT, KOOPA_SPEED);
 				}
 				if (Collisions::Instance()->Circle(m_enemies[i], Luigi_character))
 				{
@@ -118,12 +116,15 @@ bool GameScreenLevel1::SetUpLevel()
 	SetLevelMap();
 
 	CreateKoopa(Vector2D(150, 32), FACING_RIGHT, KOOPA_SPEED);
+
 	//CreateKoopa(Vector2D(175, 32), FACING_RIGHT, KOOPA_SPEED);
 	//CreateKoopa(Vector2D(200, 32), FACING_RIGHT, KOOPA_SPEED);
 	//CreateKoopa(Vector2D(225, 32), FACING_RIGHT, KOOPA_SPEED);
 	//CreateKoopa(Vector2D(250, 32), FACING_RIGHT, KOOPA_SPEED);
 	//CreateKoopa(Vector2D(300, 32), FACING_RIGHT, KOOPA_SPEED);
 	CreateKoopa(Vector2D(325, 32), FACING_LEFT, KOOPA_SPEED);
+
+
 	//CreateKoopa(Vector2D(300, 32), FACING_LEFT, KOOPA_SPEED);
 	//CreateKoopa(Vector2D(375, 32), FACING_LEFT, KOOPA_SPEED);
 	//CreateKoopa(Vector2D(250, 32), FACING_LEFT, KOOPA_SPEED);

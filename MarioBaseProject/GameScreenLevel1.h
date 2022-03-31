@@ -20,6 +20,7 @@ private:
 	CharacterKoopa* Koopa_character;
 	vector<CharacterKoopa*> m_enemies;
 	PowBlock* m_pow_block;
+	SDL_Rect* camera;
 
 	bool m_screenshake;
 	float m_shake_time;
