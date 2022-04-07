@@ -13,3 +13,5 @@
 #define SHAKE_DURATION 0.25f
 #define INJURED_TIME 2.5f
 #define KOOPA_SPEED 96.0f
+#define COIN_SPEED 96.0f
+#define ANIMATION_DELAY 0.10f

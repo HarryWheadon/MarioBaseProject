@@ -5,10 +5,12 @@
 #include "LevelMap.h"
 #include "PowBlock.h"
 #include "CharacterKoopa.h"
+#include "CharacterCoin.h"
 #include <vector>
 
 class Character;
 class CharacterKoopa;
+class CharacterCoin;
 class Texture2D;
 class PowBlock;
 class GameScreenLevel1 : GameScreen
@@ -18,7 +20,9 @@ private:
 	CharacterMario* Mario_character;
 	CharacterLuigi* Luigi_character;
 	CharacterKoopa* Koopa_character;
+	CharacterCoin* Coin_character;
 	vector<CharacterKoopa*> m_enemies;
+	vector<CharacterCoin*> m_coins;
 	PowBlock* m_pow_block;
 
 	bool m_screenshake;
@@ -29,8 +33,9 @@ private:
 	void DoScreenShake();
 	void SetLevelMap();
 	void UpdateEnemies(float deltaTime, SDL_Event e);
+	void UpdateCoins(float deltaTime, SDL_Event e);
 	void CreateKoopa(Vector2D position, FACING direction, float speed);
-
+	void CreateCoin(Vector2D position, FACING direction, float speed);
 
 public:
 	GameScreenLevel1(SDL_Renderer* renderer);
