@@ -14,17 +14,11 @@ CharacterCoin::~CharacterCoin()
 
 void CharacterCoin::Render()
 {
-	//variable to hold the left position of the sprite we want to draw
 	int left = 0.0f;
-
-	//get the portion of the sprite sheet you want to draw
-	//							   {xPos, yPos, width of sprite, height of sprite}
 	SDL_Rect portion_of_sprite = { m_single_sprite_w * m_current_frame,0,m_single_sprite_w, m_single_sprite_h };
 
-	//determine where you want it drawn
 	SDL_Rect destRect = { (int)(m_position.x), (int)(m_position.y), m_single_sprite_w, m_single_sprite_h };
 
-	//then draw it facing the correct direction
 	if (m_facing_direction == FACING_RIGHT)
 	{
 		m_texture->Render(portion_of_sprite, destRect, SDL_FLIP_NONE);

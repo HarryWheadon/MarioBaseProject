@@ -113,10 +113,8 @@ void GameScreenLevel1::UpdateEnemies(float deltaTime, SDL_Event e)
 		int enemyIndexToDelete = -1;
 		for (unsigned int i = 0; i < m_enemies.size(); i++)
 		{
-			//check if the enemy is on the bottom row of tiles
 			if (m_enemies[i]->GetPosition().y > 300.0f)
 			{
-				//is the enemy off screen to the left / right?
 				if (m_enemies[i]->GetPosition().x < (float)(-m_enemies[i]->GetCollisionBox().width * 0.5f) || m_enemies[
 					i]->GetPosition().x > SCREEN_WIDTH - (float)(m_enemies[i]->GetCollisionBox().width * 0.55f))
 					m_enemies[i]->SetAlive(false);
@@ -126,15 +124,10 @@ void GameScreenLevel1::UpdateEnemies(float deltaTime, SDL_Event e)
 			if ( m_enemies[i]->GetPosition().x < 0 || m_enemies[i]->GetPosition().x > 450)
 				m_enemies[i]->HitWall(true);
 
-			//now do the update
-
 			m_enemies[i]->Update(deltaTime, e);
 
-			//check to see if enemy collides with player
 			if ((m_enemies[i]->GetPosition().y > 300.0f || m_enemies[i]->GetPosition().y <= 64.0f) && (m_enemies[i]->
-				GetPosition().x < 64.0f || m_enemies[i]->GetPosition().x > SCREEN_WIDTH - 96.0f))
-			{
-				//ignore collisions if behind pipe
+				GetPosition().x < 64.0f || m_enemies[i]->GetPosition().x > SCREEN_WIDTH - 96.0f)) {
 			}
 			else
 			{
@@ -155,15 +148,11 @@ void GameScreenLevel1::UpdateEnemies(float deltaTime, SDL_Event e)
 					}
 				}
 			}
-			//if the enemy is no longer alive then schedule it for deletion
 			if (!m_enemies[i]->GetAlive())
 			{
 				enemyIndexToDelete = i;
 			}
 		}
-
-		//remove dead enemies -1 each update
-
 		if (enemyIndexToDelete != -1)
 		{
 			m_enemies.erase(m_enemies.begin() + enemyIndexToDelete);
@@ -175,18 +164,11 @@ bool GameScreenLevel1::SetUpLevel()
 {
 	SetLevelMap();
 
+	//Instantiates a new Koopa to the enemies Array
 	CreateKoopa(Vector2D(150, 32), FACING_RIGHT, KOOPA_SPEED);
-	//CreateKoopa(Vector2D(175, 32), FACING_RIGHT, KOOPA_SPEED);
-	//CreateKoopa(Vector2D(200, 32), FACING_RIGHT, KOOPA_SPEED);
-	//CreateKoopa(Vector2D(225, 32), FACING_RIGHT, KOOPA_SPEED);
-	//CreateKoopa(Vector2D(250, 32), FACING_RIGHT, KOOPA_SPEED);
-	//CreateKoopa(Vector2D(300, 32), FACING_RIGHT, KOOPA_SPEED);
 	CreateKoopa(Vector2D(325, 32), FACING_LEFT, KOOPA_SPEED);
-	//CreateKoopa(Vector2D(300, 32), FACING_LEFT, KOOPA_SPEED);
-	//CreateKoopa(Vector2D(375, 32), FACING_LEFT, KOOPA_SPEED);
-	//CreateKoopa(Vector2D(250, 32), FACING_LEFT, KOOPA_SPEED);
-	//CreateKoopa(Vector2D(225, 32), FACING_LEFT, KOOPA_SPEED);
 
+	//Instantiates a new coin to the coins Array
 	CreateCoin(Vector2D(375, 32), FACING_LEFT, COIN_SPEED);
 	CreateCoin(Vector2D(175, 32), FACING_RIGHT, COIN_SPEED);
 
@@ -213,7 +195,6 @@ GameScreenLevel1::GameScreenLevel1(SDL_Renderer* renderer) : GameScreen(renderer
 {
 	SetUpLevel();
 	m_level_map = nullptr;
-
 }
 
 GameScreenLevel1::~GameScreenLevel1()
