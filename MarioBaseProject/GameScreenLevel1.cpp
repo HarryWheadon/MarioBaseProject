@@ -70,7 +70,7 @@ void GameScreenLevel1::UpdateCoins(float deltaTime, SDL_Event e)
 			}
 
 			m_coins[i]->HitWall(false);
-			if (m_coins[i]->GetPosition().x < 0 || m_coins[i]->GetPosition().x > 450)
+			if (m_coins[i]->GetPosition().x < 0 || m_coins[i]->GetPosition().x > SCREEN_WIDTH - 32)
 				m_coins[i]->HitWall(true);
 
 			//now do the update
@@ -86,10 +86,16 @@ void GameScreenLevel1::UpdateCoins(float deltaTime, SDL_Event e)
 			else
 			{
 				if (Collisions::Instance()->Circle(m_coins[i], Mario_character))
+				{ 
 					m_coins[i]->SetAlive(false);
+					m_points += 1;
+				}
 	
 				if (Collisions::Instance()->Circle(m_coins[i], Luigi_character))
+				{ 
 					m_coins[i]->SetAlive(false);
+					m_points += 1;
+				}
 			}
 			//if the coin is no longer alive then schedule it for deletion
 			if (!m_coins[i]->GetAlive())
@@ -123,7 +129,7 @@ void GameScreenLevel1::UpdateEnemies(float deltaTime, SDL_Event e)
 			}
 
 			m_enemies[i]->HitWall(false);
-			if ( m_enemies[i]->GetPosition().x < 0 || m_enemies[i]->GetPosition().x > 450)
+			if ( m_enemies[i]->GetPosition().x < 0 || m_enemies[i]->GetPosition().x > SCREEN_WIDTH - 32)
 				m_enemies[i]->HitWall(true);
 
 			//now do the update
@@ -213,6 +219,7 @@ GameScreenLevel1::GameScreenLevel1(SDL_Renderer* renderer) : GameScreen(renderer
 {
 	SetUpLevel();
 	m_level_map = nullptr;
+	m_points = 0;
 
 }
 

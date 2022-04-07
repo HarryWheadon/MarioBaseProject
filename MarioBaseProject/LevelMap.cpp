@@ -23,7 +23,7 @@ int LevelMap::GetTileAt(unsigned int h, unsigned int w)
 {
     if (h < MAP_HEIGHT && w < MAP_WIDTH)
     {
-        return m_map[h][w];
+        return m_map[h][w]; 
     }
     return 0;
 }
