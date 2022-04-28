@@ -24,6 +24,7 @@ private:
 	vector<CharacterKoopa*> m_enemies;
 	vector<CharacterCoin*> m_coins;
 	PowBlock* m_pow_block;
+	SDL_Rect camera;
 
 	bool m_screenshake;
 	float m_shake_time;

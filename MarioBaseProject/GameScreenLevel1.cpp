@@ -229,9 +229,9 @@ void GameScreenLevel1::Render()
 	}
 
 	//draw the background
-	m_background_texture->Render(Vector2D(0, m_background_yPos), SDL_FLIP_NONE);
-	Mario_character->Render();
-	Luigi_character->Render();
+	m_background_texture->Render(Vector2D(0, m_background_yPos),camera, SDL_FLIP_NONE, 0.0);
+	Mario_character->Render(camera);
+	Luigi_character->Render(camera);
 	m_pow_block->Render();
 }
 
@@ -252,13 +252,19 @@ void GameScreenLevel1::Update(float deltaTime, SDL_Event e)
 			m_background_yPos = 0.0f;
 		}
 	}
-
 	//update Character
 	Mario_character->MarioUpdate(deltaTime, e);
 	Luigi_character->LuigiUpdate(deltaTime, e);
 	UpdateCoins(deltaTime, e);
 	UpdateEnemies(deltaTime, e);
 	UpdatePOWBlock();
+	
+	camera.x = Mario_character->GetPosition().x - (SCREEN_WIDTH / 2);
+
+	if (camera.x < 0)
+		camera.x = 0;
+	if (camera.x > SCREEN_WIDTH - camera.w)
+		camera.x = SCREEN_WIDTH - camera.w;
 }
 
 

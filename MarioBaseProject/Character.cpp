@@ -65,8 +65,14 @@ float Character::GetCollisionRadius()
 	return m_collision_radius;
 }
 
-void Character::Render()
+void Character::Render(SDL_Rect camera_rect)
 {
+	SDL_Rect dest_rect = { (int)(m_position.x - camera_rect.x) };
+
+	SDL_Rect src_rect = { (int)m_texture->GetWidth(), (int)m_texture->GetHeight() };
+	
+	m_texture->Render(src_rect, dest_rect, SDL_FLIP_NONE);
+
 	if (m_facing_direction == FACING_RIGHT)
 	{
 		m_texture->Render(m_position, SDL_FLIP_NONE);
