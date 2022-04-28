@@ -16,6 +16,8 @@ public:
 	void Render(Vector2D new_position, SDL_RendererFlip flip, double angle = 0.0);
 	void Render(SDL_Rect src_rect, SDL_Rect src_dest, SDL_RendererFlip flip, double angle = 0.0);
 
+	void Render(Vector2D new_position, SDL_Rect clip, SDL_RendererFlip flip, double angle);
+
 	int GetWidth() { return m_width;  }
 	int GetHeight() { return m_height; }
 
