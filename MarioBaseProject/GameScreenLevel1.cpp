@@ -17,19 +17,19 @@ void GameScreenLevel1::DoScreenShake()
 
 void GameScreenLevel1::SetLevelMap()
 {
-	int map[MAP_HEIGHT][MAP_WIDTH] = { { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-					  { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-					  { 1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1 },
-					  { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-					  { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-					  { 0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0 },
-					  { 1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1 },
-					  { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-					  { 0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0 },
-					  { 1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1 },
-					  { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-					  { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-					  { 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 } };
+	int map[MAP_HEIGHT][MAP_WIDTH] = { { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+					  { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+					  { 1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1 },
+					  { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+					  { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+					  { 0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0 },
+					  { 1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1 },
+					  { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+					  { 0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0 },
+					  { 1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1 },
+					  { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+					  { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+					  { 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 } };
 
 	//clear any old maps
 	if (m_level_map != nullptr)
@@ -39,18 +39,6 @@ void GameScreenLevel1::SetLevelMap()
 
 	//set the new one
 	m_level_map = new LevelMap(map);
-}
-
-void GameScreenLevel1::CreateKoopa(Vector2D position, FACING direction, float speed)
-{
-	Koopa_character = new CharacterKoopa(m_renderer, "Images/koopa.png", m_level_map, position, direction, speed);
-	m_enemies.push_back(Koopa_character);
-}
-
-void GameScreenLevel1::CreateCoin(Vector2D position, FACING direction, float speed)
-{
-	Coin_character = new CharacterCoin(m_renderer, "Images/coin.png", m_level_map, position, direction, speed);
-	m_coins.push_back(Coin_character);
 }
 
 void GameScreenLevel1::UpdateCoins(float deltaTime, SDL_Event e)
@@ -160,6 +148,19 @@ void GameScreenLevel1::UpdateEnemies(float deltaTime, SDL_Event e)
 	}
 }
 
+
+void GameScreenLevel1::CreateKoopa(Vector2D position, FACING direction, float speed)
+{
+	Koopa_character = new CharacterKoopa(m_renderer, "Images/koopa.png", m_level_map, position, direction, speed);
+	m_enemies.push_back(Koopa_character);
+}
+
+void GameScreenLevel1::CreateCoin(Vector2D position, FACING direction, float speed)
+{
+	Coin_character = new CharacterCoin(m_renderer, "Images/coin.png", m_level_map, position, direction, speed);
+	m_coins.push_back(Coin_character);
+}
+
 bool GameScreenLevel1::SetUpLevel()
 {
 	SetLevelMap();
@@ -183,7 +184,8 @@ bool GameScreenLevel1::SetUpLevel()
 
 	//load texture
 	m_background_texture = new Texture2D(m_renderer);
-	if (!m_background_texture->LoadFromFile("Images/BackgroundMB.png"))
+
+	if (!m_background_texture->LoadFromFile("Images/BackgroundMBLong.png"))
 	{
 		std::cout << "Failed to load background texture!" << std::endl;
 		return false;
@@ -218,6 +220,10 @@ GameScreenLevel1::~GameScreenLevel1()
 
 void GameScreenLevel1::Render()
 {
+
+	//draw the background
+	m_background_texture->Render(Vector2D(0, m_background_yPos),camera, SDL_FLIP_NONE, 0.0);
+
 	//draw the enemies
 	for (int i = 0; i < m_enemies.size(); i++)
 	{
@@ -228,8 +234,6 @@ void GameScreenLevel1::Render()
 		m_coins[i]->Render();
 	}
 
-	//draw the background
-	m_background_texture->Render(Vector2D(0, m_background_yPos),camera, SDL_FLIP_NONE, 0.0);
 	Mario_character->Render(camera);
 	Luigi_character->Render(camera);
 	m_pow_block->Render();
@@ -259,7 +263,7 @@ void GameScreenLevel1::Update(float deltaTime, SDL_Event e)
 	UpdateEnemies(deltaTime, e);
 	UpdatePOWBlock();
 	
-	camera.x = Mario_character->GetPosition().x - (SCREEN_WIDTH / 2);
+	camera.x = (Mario_character->GetPosition().x) - SCREEN_WIDTH / 2;
 
 	if (camera.x < 0)
 		camera.x = 0;
