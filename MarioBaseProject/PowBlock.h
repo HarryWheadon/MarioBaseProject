@@ -12,7 +12,7 @@ class LevelMap;
 class PowBlock
 {
 public:
-	PowBlock(SDL_Renderer* renderer, LevelMap* map);
+	PowBlock(SDL_Renderer* renderer, LevelMap* map, Vector2D pos);
 	~PowBlock();
 
 		Rect2D GetCollisionBox() { return Rect2D(m_position.x, m_position.y, m_single_sprite_w, m_single_sprite_h); }
