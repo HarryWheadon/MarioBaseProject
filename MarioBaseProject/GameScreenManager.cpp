@@ -27,17 +27,6 @@ void GameScreenManager::Update(float deltaTime, SDL_Event e)
 {
 	m_current_screen->Update(deltaTime, e);
 
-
-	/*	SDL_PollEvent(&e);
-		switch (e.type)
-		{
-		case SDL_KEYDOWN:
-			switch (e.key.keysym.sym)
-			{
-			case SDLK_t:
-				ChangeScreen(SCREEN_LEVEL1);
-			}
-		}*/
 }
 
 void GameScreenManager::ChangeScreen(SCREENS new_screen)
@@ -62,21 +51,4 @@ void GameScreenManager::ChangeScreen(SCREENS new_screen)
 		m_current_screen = (GameScreen*)tempScreen1;
 		tempScreen1 = nullptr;
 	}
-	/*switch (new_screen)
-	{
-	case SCREEN_MENU:
-	{
-		GameScreenMainMenu* tempScreen;
-		tempScreen = new GameScreenMainMenu(m_renderer);
-		m_current_screen = (GameScreen*)tempScreen;
-		tempScreen = nullptr;
-	}
-	case SCREEN_LEVEL1:
-	{
-		GameScreenLevel1* tempScreen1;
-		tempScreen1 = new GameScreenLevel1(m_renderer);
-		m_current_screen = (GameScreen*)tempScreen1;
-		tempScreen1 = nullptr;
-	}
-	}*/
 }

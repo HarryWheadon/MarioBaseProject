@@ -28,8 +28,8 @@ private:
 	vector<CharacterKoopa*> m_enemies;
 	vector<CharacterCoin*> m_coins;
 	PowBlock* m_pow_block;
-	PowBlock* m_pow_block1;
 	SoundEffect* Background_music;
+	SoundEffect* CoinCollect_music;
 	SDL_Rect camera;
 
 	bool m_screenshake;

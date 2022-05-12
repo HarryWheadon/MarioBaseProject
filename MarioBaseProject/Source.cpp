@@ -6,6 +6,8 @@
 #include "Texture2D.h"
 #include "Commons.h"
 #include "GameScreenManager.h"
+#include "SoundEffect.h"
+#include <SDL_ttf.h>
 using namespace std;
 
 //Globals
@@ -13,7 +15,6 @@ SDL_Window* g_window = nullptr;
 SDL_Renderer* g_renderer = nullptr;
 GameScreenManager* game_screen_manager;
 Uint32 g_old_time;
-Mix_Music* g_music = nullptr;
 
 void Render()
 {
@@ -98,11 +99,6 @@ void CLoseSDL()
 //destroy the game screen manager
 	delete game_screen_manager;
 	game_screen_manager = nullptr;
-
-	//clear up music
-	Mix_FreeMusic(g_music);
-		g_music = nullptr;
-
 }
 
 bool Update()
@@ -121,9 +117,11 @@ bool Update()
 	case SDL_KEYDOWN:
 		switch (e.key.keysym.sym)
 		{
-		case SDLK_x:
+		case SDLK_x:{
 			return true;
-			break;
+			break; }
+		case SDLK_RETURN:
+			game_screen_manager->ChangeScreen(SCREEN_LEVEL1);
 		}
 	}
 
@@ -132,27 +130,12 @@ bool Update()
 	return false;
 }
 
-void LoadMusic(string path)
-{
-	g_music = Mix_LoadMUS(path.c_str());
-	if (g_music == nullptr)
-	{
-		cout << "Failed to load music. Error: " << Mix_GetError() << endl;
-	}
-
-}
 
 int main(int argc, char* args[])
 {
 	if (InitSDL())
 	{
-		LoadMusic("Music/Mario.mp3");
-		if (Mix_PlayingMusic() == 0)
-		{
-			Mix_PlayMusic(g_music, -1);
-		}
-
-		game_screen_manager = new GameScreenManager(g_renderer, SCREEN_LEVEL1);
+		game_screen_manager = new GameScreenManager(g_renderer, SCREEN_MENU);
 			//set the time
 			g_old_time = SDL_GetTicks();
 
