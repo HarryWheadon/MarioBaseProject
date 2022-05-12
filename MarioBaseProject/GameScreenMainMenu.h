@@ -1,0 +1,24 @@
+#pragma once
+#include "GameScreen.h"
+#include "Commons.h"
+#include "GameScreenManager.h"
+#include "Character.h"
+
+class Texture2D;
+class GameScreenMainMenu : GameScreen
+{
+private:
+	Texture2D* m_background_texture;
+	Texture2D* m_pointer;
+	int pointerYpos;
+
+public:
+	GameScreenMainMenu(SDL_Renderer* renderer);
+	~GameScreenMainMenu();
+
+	void setupLevel();
+	void Render() override;
+	void Update(float deltaTime, SDL_Event e) override;
+
+};
+

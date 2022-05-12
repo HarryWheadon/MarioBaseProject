@@ -20,6 +20,9 @@ protected:
 	float m_collision_radius;
 	bool m_alive;
 	bool hitwall;
+	float m_single_sprite_w;
+	float m_single_sprite_h;
+	float m_current_frame;
 
 	virtual void MoveLeft(float deltaTime);
 	virtual void MoveRight(float deltaTime);
@@ -35,11 +38,11 @@ public:
 	~Character();
 
 	float GetCollisionRadius();
-	virtual void Render();
+	virtual void Render(SDL_Rect camera_rect);
 	virtual void Update(float deltaTime, SDL_Event e);
 	void SetPosition(Vector2D new_position);
 	Vector2D GetPosition();
-	Rect2D GetCollisionBox() { return Rect2D(m_position.x, m_position.y, m_texture->GetWidth(), m_texture->GetHeight()); }
+	Rect2D GetCollisionBox() { return Rect2D(m_position.x, m_position.y, m_texture->GetWidth() /3, m_texture->GetHeight()); }
 	bool IsJumping() { return m_jumping; }
 	void CancelJump() { m_jumping = false; };
 	FACING m_facing_direction;
@@ -50,6 +53,7 @@ public:
 	void HitWall(bool hitwall);
 
 private:
+
 	LevelMap* m_current_level_map;
 };
 

@@ -6,6 +6,9 @@
 #include "PowBlock.h"
 #include "CharacterKoopa.h"
 #include "CharacterCoin.h"
+#include "SoundEffect.h"
+#include "Collisions.h"
+#include "Texture2D.h"
 #include <vector>
 
 class Character;
@@ -13,6 +16,7 @@ class CharacterKoopa;
 class CharacterCoin;
 class Texture2D;
 class PowBlock;
+class SoundEffect;
 class GameScreenLevel1 : GameScreen
 {
 private:
@@ -24,6 +28,9 @@ private:
 	vector<CharacterKoopa*> m_enemies;
 	vector<CharacterCoin*> m_coins;
 	PowBlock* m_pow_block;
+	SoundEffect* Background_music;
+	SoundEffect* CoinCollect_music;
+	SDL_Rect camera;
 
 	bool m_screenshake;
 	float m_shake_time;

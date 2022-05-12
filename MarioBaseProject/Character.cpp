@@ -6,6 +6,7 @@ void Character::Jump()
 {
 	if (!m_jumping)
 	{
+		m_current_frame = 2;
 		m_jump_force = INITIAL_JUMP_FORCE;
 		m_jumping = true;
 		m_can_jump = false;
@@ -65,15 +66,22 @@ float Character::GetCollisionRadius()
 	return m_collision_radius;
 }
 
-void Character::Render()
+void Character::Render(SDL_Rect camera_rect)
 {
+	m_single_sprite_w = m_texture->GetWidth() / 3;
+	m_single_sprite_h = m_texture->GetHeight();
+
+	SDL_Rect portion_of_sprite = { m_single_sprite_w * m_current_frame,0,m_single_sprite_w, m_single_sprite_h };
+
+	SDL_Rect destRect = { (int)(m_position.x), (int)(m_position.y), m_single_sprite_w, m_single_sprite_h };
+
 	if (m_facing_direction == FACING_RIGHT)
 	{
-		m_texture->Render(m_position, SDL_FLIP_NONE);
+		m_texture->Render(portion_of_sprite, destRect, SDL_FLIP_NONE);
 	}
 	else
 	{
-		m_texture->Render(m_position, SDL_FLIP_HORIZONTAL);
+		m_texture->Render(portion_of_sprite, destRect, SDL_FLIP_HORIZONTAL);
 	}
 }
 
@@ -102,9 +110,8 @@ void Character::Update(float deltaTime, SDL_Event e)
 	{
 		MoveRight(deltaTime);
 	}
-
 	//collision position variables
-	int centralX_position = (int)(m_position.x + (m_texture->GetWidth() * 0.5)) / TILE_WIDTH;
+	int centralX_position = (int)(m_position.x + (m_single_sprite_w * m_current_frame) *0.5) / TILE_WIDTH;
 	int foot_position = (int)(m_position.y + m_texture->GetHeight()) / TILE_HEIGHT;
 
 	//deal with gravity
@@ -139,6 +146,7 @@ void Character::HitWall(bool Hitwall)
 	hitwall = Hitwall;
 }
 
+
 CharacterLuigi::CharacterLuigi(SDL_Renderer* renderer, string imagePath, Vector2D startposition, LevelMap* map) : Character(renderer, imagePath, startposition, map){}
 
 void CharacterLuigi::LuigiUpdate(float deltaTime, SDL_Event e)
@@ -151,14 +159,17 @@ void CharacterLuigi::LuigiUpdate(float deltaTime, SDL_Event e)
 		{
 		case SDLK_a:
 			m_moving_left = true;
+			m_current_frame = 1;
 			break;
 		case SDLK_d:
 			m_moving_right = true;
+			m_current_frame = 1;
 			break;
 		case SDLK_SPACE:
 			if (m_can_jump)
 			{
 				Jump();
+				m_current_frame = 2;
 			}
 		}
 		break;
@@ -167,9 +178,13 @@ void CharacterLuigi::LuigiUpdate(float deltaTime, SDL_Event e)
 		{
 		case SDLK_a:
 			m_moving_left = false;
+			// changes the frame back to idle
+			m_current_frame = 0;
 			break;
 		case SDLK_d:
 			m_moving_right = false;
+			// changes the frame back to idle
+			m_current_frame = 0;
 			break;
 		}
 		break;
@@ -187,15 +202,18 @@ void CharacterMario::MarioUpdate(float deltaTime, SDL_Event e)
 		switch (e.key.keysym.sym)
 		{
 		case SDLK_LEFT:
+			m_current_frame = 1;
 			m_moving_left = true;
 			break;
 		case SDLK_RIGHT:
+			m_current_frame = 1;
 			m_moving_right = true;
 			break;
 		case SDLK_RSHIFT:
 			if (m_can_jump)
 			{
 				Jump();
+				m_current_frame = 2;
 			}
 		}
 		break;
@@ -205,10 +223,14 @@ void CharacterMario::MarioUpdate(float deltaTime, SDL_Event e)
 		case SDLK_LEFT:
 
 			m_moving_left = false;
+			// changes the frame back to idle
+			m_current_frame = 0;
 			break;
 		case SDLK_RIGHT:
 
 			m_moving_right = false;
+			// changes the frame back to idle
+			m_current_frame = 0;
 			break;
 		}
 		break;
