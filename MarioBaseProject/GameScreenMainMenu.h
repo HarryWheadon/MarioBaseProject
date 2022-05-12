@@ -9,7 +9,8 @@ class GameScreenMainMenu : GameScreen
 {
 private:
 	Texture2D* m_background_texture;
-
+	Texture2D* m_pointer;
+	int pointerYpos;
 
 public:
 	GameScreenMainMenu(SDL_Renderer* renderer);

@@ -14,19 +14,19 @@ void GameScreenLevel1::DoScreenShake()
 
 void GameScreenLevel1::SetLevelMap()
 {
-	int map[MAP_HEIGHT][MAP_WIDTH] = { { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-					                   { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-					                   { 1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1 },
-					                   { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-					                   { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-					                   { 0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0 },
-					                   { 1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1 },
-					                   { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-					                   { 0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0 },
-					                   { 1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1 },
-					                   { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-					                   { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-					                   { 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 } };
+	int map[MAP_HEIGHT][MAP_WIDTH] = { { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+					                   { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+					                   { 1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1 },
+					                   { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+					                   { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+					                   { 0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0 },
+					                   { 1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1 },
+					                   { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+					                   { 0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0 },
+					                   { 1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1 },
+					                   { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+					                   { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+					                   { 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 } };
 
 	//clear any old maps
 	if (m_level_map != nullptr)
@@ -48,7 +48,6 @@ void GameScreenLevel1::UpdateCoins(float deltaTime, SDL_Event e)
 			//do the update
 			m_coins[i]->Update(deltaTime, e);
 
-			//check to see if enemy collides with player
 			if ((m_coins[i]->GetPosition().y > 300.0f || m_coins[i]->GetPosition().y <= 64.0f) && (m_coins[i]->
 				GetPosition().x < 64.0f || m_coins[i]->GetPosition().x > SCREEN_WIDTH - 96.0f))
 			{
@@ -56,11 +55,14 @@ void GameScreenLevel1::UpdateCoins(float deltaTime, SDL_Event e)
 			}
 			else
 			{
+				//check to see if enemy collides with player
 				if (Collisions::Instance()->Circle(m_coins[i], Mario_character))
 					m_coins[i]->SetAlive(false);
+				CoinCollect_music = new SoundEffect("Music/CoinCollect.mp3");
 	
 				if (Collisions::Instance()->Circle(m_coins[i], Luigi_character))
 					m_coins[i]->SetAlive(false);
+				CoinCollect_music = new SoundEffect("Music/CoinCollect.mp3");
 			}
 			//if the coin is no longer alive then schedule it for deletion
 			if (!m_coins[i]->GetAlive())
@@ -120,8 +122,6 @@ void GameScreenLevel1::UpdateEnemies(float deltaTime, SDL_Event e)
 					if (m_enemies[i]->GetInjured())
 					{
 						m_enemies[i]->SetAlive(false);
-						CreateKoopa(Vector2D(325, 32), FACING_LEFT, KOOPA_SPEED);
-						CreateKoopa(Vector2D(150, 32), FACING_RIGHT, KOOPA_SPEED);
 					}
 				}
 				if (Collisions::Instance()->Circle(m_enemies[i], Luigi_character))
@@ -149,8 +149,6 @@ bool GameScreenLevel1::SetUpLevel()
 {
 	SetLevelMap();
 
-	Background_music = new SoundEffect;
-	Background_music->LoadMusic("Music/Mario.mp3");
 
 	//Instantiates a new Koopa to the enemies Array
 	CreateKoopa(Vector2D(150, 32), FACING_RIGHT, KOOPA_SPEED);
@@ -165,44 +163,23 @@ bool GameScreenLevel1::SetUpLevel()
 	CreateCoin(Vector2D(325, 40), FACING_RIGHT, COIN_SPEED);
 	CreateCoin(Vector2D(360, 40), FACING_LEFT, COIN_SPEED);
 	CreateCoin(Vector2D(390, 40), FACING_RIGHT, COIN_SPEED);
-	// Top Middle Coins
-	CreateCoin(Vector2D(675, 40), FACING_RIGHT, COIN_SPEED);
-	CreateCoin(Vector2D(645, 40), FACING_RIGHT, COIN_SPEED);
-	CreateCoin(Vector2D(610, 40), FACING_RIGHT, COIN_SPEED);
-	// Top Right Coins
-	CreateCoin(Vector2D(835, 40), FACING_RIGHT, COIN_SPEED);
-	CreateCoin(Vector2D(870, 40), FACING_LEFT, COIN_SPEED);
-	CreateCoin(Vector2D(900, 40), FACING_RIGHT, COIN_SPEED);
+
+	// Middle Left Coins
+	CreateCoin(Vector2D(225, 135), FACING_RIGHT, COIN_SPEED);
+	CreateCoin(Vector2D(260, 135), FACING_LEFT, COIN_SPEED);
+	// Middle Right Coins
+	CreateCoin(Vector2D(740, 135), FACING_RIGHT, COIN_SPEED);
+	CreateCoin(Vector2D(775, 135), FACING_LEFT, COIN_SPEED);
 
 
 	//set up player character
-	Mario_character = new CharacterMario(m_renderer, "Images/Mario.png", Vector2D(64, 330), m_level_map);
-	Luigi_character = new CharacterLuigi(m_renderer, "Images/Luigi.png", Vector2D(64, 330), m_level_map);
+	Mario_character = new CharacterMario(m_renderer, "Images/MarioAnimated.png", Vector2D(64, 330), m_level_map);
+	Luigi_character = new CharacterLuigi(m_renderer, "Images/LuigiAnimated.png", Vector2D(64, 330), m_level_map);
 
-
-	// Middle Left Coins
-	/*CreateCoin(Vector2D(225, 135), FACING_RIGHT, COIN_SPEED);
-	CreateCoin(Vector2D(260, 135), FACING_LEFT, COIN_SPEED);*/
-	// Middle Right Coins
-	//CreateCoin(Vector2D(740, 135), FACING_RIGHT, COIN_SPEED);
-	//CreateCoin(Vector2D(775, 135), FACING_LEFT, COIN_SPEED);
-	// Bottom Left Coins
-	//CreateCoin(Vector2D(70, 265), FACING_RIGHT, COIN_SPEED);
-	//CreateCoin(Vector2D(40, 265), FACING_RIGHT, COIN_SPEED);
-	//CreateCoin(Vector2D(10, 265), FACING_RIGHT, COIN_SPEED);
-	// Bottom Middle Coins
-	//CreateCoin(Vector2D(550, 265), FACING_RIGHT, COIN_SPEED);
-	//CreateCoin(Vector2D(520, 265), FACING_RIGHT, COIN_SPEED);
-	//CreateCoin(Vector2D(490, 265), FACING_RIGHT, COIN_SPEED);
-	//CreateCoin(Vector2D(460, 265), FACING_RIGHT, COIN_SPEED);
-
-	//CreateCoin(Vector2D(1000, 265), FACING_RIGHT, COIN_SPEED);
-	//CreateCoin(Vector2D(970, 265), FACING_RIGHT, COIN_SPEED);
-	//CreateCoin(Vector2D(940, 265), FACING_RIGHT, COIN_SPEED);
+	Background_music = new SoundEffect("Music/Mario.mp3");
 
 	//load powblock
 	m_pow_block = new PowBlock(m_renderer, m_level_map, Vector2D(240, 260));
-	m_pow_block1 = new PowBlock(m_renderer, m_level_map, Vector2D(280, 260));
 	m_screenshake = false;
 	m_background_yPos = 0.0f;
 	//load texture
