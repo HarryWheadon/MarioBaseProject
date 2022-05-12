@@ -58,11 +58,9 @@ void GameScreenLevel1::UpdateCoins(float deltaTime, SDL_Event e)
 				//check to see if enemy collides with player
 				if (Collisions::Instance()->Circle(m_coins[i], Mario_character))
 					m_coins[i]->SetAlive(false);
-				CoinCollect_music = new SoundEffect("Music/CoinCollect.mp3");
 	
 				if (Collisions::Instance()->Circle(m_coins[i], Luigi_character))
 					m_coins[i]->SetAlive(false);
-				CoinCollect_music = new SoundEffect("Music/CoinCollect.mp3");
 			}
 			//if the coin is no longer alive then schedule it for deletion
 			if (!m_coins[i]->GetAlive())
@@ -106,7 +104,7 @@ void GameScreenLevel1::UpdateEnemies(float deltaTime, SDL_Event e)
 			}
 
 			m_enemies[i]->HitWall(false);
-			if ( m_enemies[i]->GetPosition().x < 0 || m_enemies[i]->GetPosition().x > 450)
+			if ( m_enemies[i]->GetPosition().x < 0 || m_enemies[i]->GetPosition().x > 500)
 				m_enemies[i]->HitWall(true);
 
 			m_enemies[i]->Update(deltaTime, e);
@@ -270,6 +268,7 @@ void GameScreenLevel1::Update(float deltaTime, SDL_Event e)
 		camera.x = 0;
 	if (camera.x > MAP_WIDTH - camera.w)
 		camera.x = MAP_WIDTH - camera.w;
+
 }
 
 

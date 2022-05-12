@@ -7,7 +7,6 @@
 #include "Commons.h"
 #include "GameScreenManager.h"
 #include "SoundEffect.h"
-#include <SDL_ttf.h>
 using namespace std;
 
 //Globals
