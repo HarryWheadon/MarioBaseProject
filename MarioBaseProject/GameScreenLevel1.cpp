@@ -38,6 +38,18 @@ void GameScreenLevel1::SetLevelMap()
 	m_level_map = new LevelMap(map);
 }
 
+void GameScreenLevel1::CreateKoopa(Vector2D position, FACING direction, float speed)
+{
+	Koopa_character = new CharacterKoopa(m_renderer, "Images/koopa.png", m_level_map, position, direction, speed);
+	m_enemies.push_back(Koopa_character);
+}
+
+void GameScreenLevel1::CreateCoin(Vector2D position, FACING direction, float speed)
+{
+	Coin_character = new CharacterCoin(m_renderer, "Images/coin.png", m_level_map, position, direction, speed);
+	m_coins.push_back(Coin_character);
+}
+
 void GameScreenLevel1::UpdateCoins(float deltaTime, SDL_Event e)
 {
 	if (!m_coins.empty())
@@ -75,18 +87,6 @@ void GameScreenLevel1::UpdateCoins(float deltaTime, SDL_Event e)
 			m_coins.erase(m_coins.begin() + enemyIndexToDelete);
 		}
 	}
-}
-
-void GameScreenLevel1::CreateKoopa(Vector2D position, FACING direction, float speed)
-{
-	Koopa_character = new CharacterKoopa(m_renderer, "Images/koopa.png", m_level_map, position, direction, speed);
-	m_enemies.push_back(Koopa_character);
-}
-
-void GameScreenLevel1::CreateCoin(Vector2D position, FACING direction, float speed)
-{
-	Coin_character = new CharacterCoin(m_renderer, "Images/coin.png", m_level_map, position, direction, speed);
-	m_coins.push_back(Coin_character);
 }
 
 void GameScreenLevel1::UpdateEnemies(float deltaTime, SDL_Event e)
@@ -169,7 +169,6 @@ bool GameScreenLevel1::SetUpLevel()
 	CreateCoin(Vector2D(740, 135), FACING_RIGHT, COIN_SPEED);
 	CreateCoin(Vector2D(775, 135), FACING_LEFT, COIN_SPEED);
 
-
 	//set up player character
 	Mario_character = new CharacterMario(m_renderer, "Images/MarioAnimated.png", Vector2D(64, 330), m_level_map);
 	Luigi_character = new CharacterLuigi(m_renderer, "Images/LuigiAnimated.png", Vector2D(64, 330), m_level_map);
@@ -189,6 +188,7 @@ bool GameScreenLevel1::SetUpLevel()
 		return false;
 	}
 	return true;
+
 }
 
 GameScreenLevel1::GameScreenLevel1(SDL_Renderer* renderer) : GameScreen(renderer)
@@ -220,7 +220,7 @@ void GameScreenLevel1::Render()
 {
 
 	//draw the background
-	m_background_texture->Render(Vector2D(0, m_background_yPos),camera, SDL_FLIP_NONE, 0.0);
+	m_background_texture->Render(Vector2D(0, m_background_yPos), SDL_FLIP_NONE, 0.0);
 
 	//draw the enemies
 	for (int i = 0; i < m_enemies.size(); i++)
@@ -232,13 +232,14 @@ void GameScreenLevel1::Render()
 		m_coins[i]->Render();
 	}
 
-	Mario_character->Render(camera);
-	Luigi_character->Render(camera);
+	Mario_character->Render();
+	Luigi_character->Render();
 	m_pow_block->Render();
 }
 
 void GameScreenLevel1::Update(float deltaTime, SDL_Event e)
 {
+
 	// do if the screen shake if required
 	if (m_screenshake)
 	{
@@ -260,16 +261,11 @@ void GameScreenLevel1::Update(float deltaTime, SDL_Event e)
 	UpdateCoins(deltaTime, e);
 	UpdateEnemies(deltaTime, e);
 	UpdatePOWBlock();
-	
-	camera.x = (Mario_character->GetPosition().x) - (SCREEN_WIDTH / 2);
-	camera.w = SCREEN_WIDTH;
-		camera.h = SCREEN_HEIGHT;
-	if (camera.x < 0)
-		camera.x = 0;
-	if (camera.x > MAP_WIDTH - camera.w)
-		camera.x = MAP_WIDTH - camera.w;
 
+	Mario_character->HitWall(true);
+		Luigi_character->HitWall(true);
 }
+
 
 
 void GameScreenLevel1::UpdatePOWBlock()

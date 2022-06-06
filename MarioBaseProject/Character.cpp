@@ -66,7 +66,7 @@ float Character::GetCollisionRadius()
 	return m_collision_radius;
 }
 
-void Character::Render(SDL_Rect camera_rect)
+void Character::Render()
 {
 	m_single_sprite_w = m_texture->GetWidth() / 3;
 	m_single_sprite_h = m_texture->GetHeight();
@@ -123,6 +123,18 @@ void Character::Update(float deltaTime, SDL_Event e)
 	{
 		//collided with ground so we can jump again
 		m_can_jump = true;
+	}
+
+	if (GetHitWall() == true)
+	{
+		if (m_position.x < 0)
+		{
+			m_position.x += 1;
+		}
+		else if (m_position.x > 495)
+		{
+			m_position.x -= 1;
+		}
 	}
 };
 

@@ -30,7 +30,6 @@ private:
 	PowBlock* m_pow_block;
 	SoundEffect* Background_music;
 	SoundEffect* CoinCollect_music;
-	SDL_Rect camera;
 
 	bool m_screenshake;
 	float m_shake_time;
